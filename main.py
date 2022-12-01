@@ -22,12 +22,12 @@ def webAppKeyboardInline(): #создание inline-клавиатуры с web
 
 @bot.message_handler(commands=['start']) #обрабатываем команду старт
 def start_fun(message):
-   bot.send_message( message.chat.id, 'Привет, я бот ProfilerTeam!)\nЗапустить тест можно нажав на кнопку ниже.', parse_mode="Markdown", reply_markup=webAppKeyboard()) #отправляем сообщение с нужной клавиатурой
+   bot.send_message(message.chat.id, 'Привет, я бот ProfilerTeam!)\nЗапустить тест можно нажав на кнопку ниже.', parse_mode="Markdown", reply_markup=webAppKeyboard()) #отправляем сообщение с нужной клавиатурой
 
 
 @bot.message_handler(content_types="text")
 def new_mes(message):
-   bot.send_message( message.chat.id, 'Запустить тест можно нажав на кнопку ниже.', parse_mode="Markdown", reply_markup=webAppKeyboard()) #отправляем сообщение с нужной клавиатурой
+   bot.send_message(message.chat.id, 'Запустить тест можно нажав на кнопку ниже.', parse_mode="Markdown", reply_markup=webAppKeyboard()) #отправляем сообщение с нужной клавиатурой
 
 
 @bot.message_handler(content_types="web_app_data") #получаем отправленные данные 
@@ -36,7 +36,14 @@ def answer(webAppMes):
    print(webAppMes.web_app_data.data) #конкретно то что мы передали в бота
    score = int(webAppMes.web_app_data.data.split()[0])
    quizlength = webAppMes.web_app_data.data.split()[1]
-   bot.send_photo(webAppMes.chat.id, open(f"E:\\User data\\Documents\\GitHub\\dukhov\\ProfilerTeam\\img\\quiz\\{score}.gif","rb"), caption=f"Ты правильно ответил на {score} из {quizlength} вопросов")
+   stickers = {0 : "CAACAgIAAxkBAAEGpE5jiP7D4TC8e3OurfP5ptSMqr6ScQAC0BUAAsHN6Etz9xIa14yPYCsE",
+               1 : "CAACAgIAAxkBAAEGpDpjiPnbhKLixKztr4hU1QABVo2kPi0AAg8YAAI3mOhLv0JPnsNwBNkrBA", 
+               2 : "CAACAgIAAxkBAAEGpDxjiPnpZHUUP3M4F1eZA0dNqmloBgACNxMAAoGN8UuD-2DPuP7AoysE",
+               3 : "CAACAgIAAxkBAAEGpD5jiPn3yrTrxbcVxr1TwvvxoziKUQACBRcAAsno6EsmvtEpe1IkcCsE",
+               4 : "CAACAgIAAxkBAAEGpEBjiPn__Y6GPiXxo_0f0VHXw1kM5QACMhQAAj6r6EtdMwJVMBohFysE",
+               5 : "CAACAgIAAxkBAAEGpEJjiPoI5dyY5C7JjKS9SN2zfv8UGQACgRAAAn-cEUhlrV6kjetHSisE"}
+   bot.send_message(webAppMes.chat.id, f"Ты правильно ответил на {score} из {quizlength} вопросов!")
+   bot.send_sticker(webAppMes.chat.id, stickers[score])
    #отправляем сообщение в ответ на отправку данных из веб-приложения 
 
 if __name__ == '__main__':
