@@ -122,6 +122,42 @@ $(window).on('load', function() {
 
 })(jQuery);
 
+
+/*------------------
+	Telegram WebApp
+--------------------*/
+
+let tg = window.Telegram.WebApp; //получаем объект webapp телеграма 
+
+   tg.expand(); //расширяем на все окно  
+
+   tg.MainButton.text = "Отправить"; //изменяем текст кнопки 
+   tg.MainButton.textColor = "#fff"; //изменяем цвет текста кнопки
+   tg.MainButton.color = "#ef4841"; //изменяем цвет бэкграунда кнопки
+   
+   if (tg.MainButton.isVisible){ //если кнопка показана 
+	tg.MainButton.hide() //скрываем кнопку 
+	}
+
+   /*
+   let usercard = document.getElementById("usercard"); //получаем блок usercard 
+
+   let profName = document.createElement('p'); //создаем параграф
+   profName.innerText = `${tg.initDataUnsafe.user.first_name}
+   ${tg.initDataUnsafe.user.last_name}
+   ${tg.initDataUnsafe.user.username} (${tg.initDataUnsafe.user.language_code})`;
+   //выдем имя, "фамилию", через тире username и код языка
+   usercard.appendChild(profName); //добавляем 
+
+   let userid = document.createElement('p'); //создаем еще параграф 
+   userid.innerText = `${tg.initDataUnsafe.user.id}`; //показываем user_id
+   usercard.appendChild(userid); //добавляем
+   */
+
+/*------------------
+		Quiz
+--------------------*/
+
 const quizData = [
     {
         question: "Какая страна раньше называлась Сиамом?",
@@ -215,22 +251,12 @@ submit.addEventListener('click', () => {
             loadQuiz();
         }
         else{
-			if(score === 5){
-				quiz.innerHTML = `<div class="quiz-header"><p><h2>Ты правильно ответил на ${score} из ${quizData.length} вопросов</h2></p><img style="border-radius: 10px;" src="img/quiz/five.gif"></div>
-            <button class="quiz-btn" onclick="location.reload()">Перепройти тест</button>`;
-			} else if(score == 4){
-				quiz.innerHTML = `<div class="quiz-header"><p><h2>Ты правильно ответил на ${score} из ${quizData.length} вопросов</h2></p><img style="border-radius: 10px;" src="img/quiz/four.gif"></div>
-            <button class="quiz-btn" onclick="location.reload()">Перепройти тест</button>`;
-			} else if(score == 3){
-				quiz.innerHTML = `<div class="quiz-header"><p><h2>Ты правильно ответил на ${score} из ${quizData.length} вопросов</h2></p><img style="border-radius: 10px;" src="img/quiz/three.gif"></div>
-            <button class="quiz-btn" onclick="location.reload()">Перепройти тест</button>`;
-			} else if(score == 2){
-				quiz.innerHTML = `<div class="quiz-header"><p><h2>Ты правильно ответил на ${score} из ${quizData.length} вопросов</h2></p><img style="border-radius: 10px;" src="img/quiz/two.gif"></div>
-            <button class="quiz-btn" onclick="location.reload()">Перепройти тест</button>`;
-			} else if(score == 1){
-				quiz.innerHTML = `<div class="quiz-header"><p><h2>Ты правильно ответил на ${score} из ${quizData.length} вопросов</h2></p><img style="border-radius: 10px;" src="img/quiz/one.gif"></div>
-            <button class="quiz-btn" onclick="location.reload()">Перепройти тест</button>`;
-			}
+			quiz.innerHTML = `<div class="quiz-header"><p><h2>Тест пройден! Скорей отправляй результаты!</h2></p><img style="border-radius: 10px;" src="img/quiz/click.gif"></div>`;
+			tg.MainButton.show() //показываем 
+			Telegram.WebApp.onEvent('mainButtonClicked', function(){
+				tg.sendData(`${score} ${quizData.length}`); 
+				//при клике на основную кнопку отправляем данные в строковом виде
+			 });
         }
     }
 });
