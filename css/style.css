@@ -412,10 +412,10 @@ table.iksweb td,table.iksweb th {
 }
 
 .quiz-text {
-	font-size: 20px;
+	font-size: 10px;
 	font-weight: 500;
 	margin-bottom: 10px;
-	padding-top: 30px;
+	padding-top: 10px;
 	margin-bottom: 0px;
 }
 
@@ -434,9 +434,12 @@ table.iksweb td,table.iksweb th {
     font-size: 16px;
     margin: 15px;
 	margin-left: 20px;
+	display: flex;
+    align-items: baseline;
 }
 
 .quiz-item ul li label{
+	padding-left: 10px;
     cursor: pointer;
 }
 
