@@ -443,6 +443,12 @@ table.iksweb td,table.iksweb th {
     cursor: pointer;
 }
 
+input[type="radio"] {
+	-ms-transform: scale(1); /* IE 9 */
+	-webkit-transform: scale(1); /* Chrome, Safari, Opera */
+	transform: scale(1);
+}
+
 .quiz-btn {
     background-color: #ef4841;
     border: none;
