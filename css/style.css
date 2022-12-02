@@ -85,17 +85,6 @@ img {
 	max-width: 100%;
 }
 
-.quiz-box{
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 0 10px 2px rgba(100, 100, 100, 0.1);
-    width: 600px;
-    overflow: hidden;
-}
-.quiz-header{
-    padding: 64px;
-}
-
 input:focus,
 select:focus,
 button:focus,
@@ -401,36 +390,50 @@ table.iksweb td,table.iksweb th {
   Quiz Section
 ---------------------*/
 
+.quiz-box{
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 2px rgba(100, 100, 100, 0.1);
+    width: 800px;
+    overflow: hidden;
+}
+.quiz-header{
+    padding: 10px;
+}
+
 .quiz-section {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100vh;
     overflow: hidden;
-    margin: 0;
+    margin: 100;
     background-size: cover;
 }
 
 .quiz-text {
-	text-align: center;
-	padding-top: 380px;
-	margin-bottom: 80px;
+	font-size: 20px;
+	font-weight: 500;
+	margin-bottom: 10px;
+	padding-top: 30px;
+	margin-bottom: 0px;
 }
 
 .quiz-text h2{
-    padding: 16px;
-    text-align: center;
-    margin: 0;
+	font-size: 26px;
+    padding: 10px;
 }
 
 .quiz-item ul{
+	padding-top: 30px;
     list-style: none;
     padding: 0;
 }
 
 .quiz-item ul li{
-    font-size: 20px;
-    margin: 15px 0;
+    font-size: 16px;
+    margin: 15px;
+	margin-left: 20px;
 }
 
 .quiz-item ul li label{

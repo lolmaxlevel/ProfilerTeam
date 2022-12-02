@@ -160,11 +160,11 @@ let tg = window.Telegram.WebApp; //получаем объект webapp теле
 
 const quizData = [
     {
-        question: "Какая страна раньше называлась Сиамом?",
-        a: "Тибет",
-        b: "Таиланд",
-        c: "Непал",
-        correct: "b",
+        question: "Вы пришли в гости, где собралось уже более 10 человек. Ваша реакция:",
+        a: "Здорово! Обожаю шумные компании, можно повеселиться, завести новых знакомых.",
+        b: "Я люблю бывать в компаниях, часто оказываюсь в центре внимания. Или удастся хорошенько  зажечь, или уж, на худой конец, с полезными людьми познакомлюсь.",
+        c: "Надеюсь, что встречу здесь каких-нибудь знакомых, мне будет приятно с ними пообщаться.  Если все – незнакомые люди, то мне будет некомфортно.",
+        d: "Я не очень люблю шумные компании и хожу на вечеринки, только чтобы завести или  поддержать полезные знакомства. Мне приятнее посидеть и поговорить с одним-двумя людьми в  покое и тишине.",
     },
     {
         question: "Какой остров относится к Италии?",
@@ -203,6 +203,7 @@ const questionElement = document.getElementById('question');
 const a_text = document.getElementById('a_text');
 const b_text = document.getElementById('b_text');
 const c_text = document.getElementById('c_text');
+const d_text = document.getElementById('d_text');
 const submit = document.getElementById('submit');
 
 let currentQuiz = 0;
@@ -219,6 +220,7 @@ function loadQuiz(){
     a_text.innerText = currentQuizData.a;
     b_text.innerText = currentQuizData.b;
     c_text.innerText = currentQuizData.c;
+	d_text.innerText = currentQuizData.d;
 }
 
 function deselectAnswers(){
@@ -251,7 +253,7 @@ submit.addEventListener('click', () => {
             loadQuiz();
         }
         else{
-			quiz.innerHTML = `<div class="quiz-header"><p><h2>Тест пройден! Скорей отправляй результаты!</h2></p><img style="border-radius: 10px;" src="img/quiz/click.gif"></div>`;
+			quiz.innerHTML = `<div class="quiz-header"><p><h2>Тест пройден! Скорее отправляй результаты!</h2></p><img style="border-radius: 10px;" src="img/quiz/click.gif"></div>`;
 			tg.MainButton.show() //показываем 
 			Telegram.WebApp.onEvent('mainButtonClicked', function(){
 				tg.sendData(`${score} ${quizData.length}`); 
