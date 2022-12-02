@@ -449,6 +449,11 @@ input[type="radio"] {
 	transform: scale(1);
 }
 
+input:checked {
+	border: 6px #ef4841;
+	outline: unset !important; /* I added this one for Edge (chromium) support */
+}
+
 .quiz-btn {
     background-color: #ef4841;
     border: none;
