@@ -433,7 +433,8 @@ table.iksweb td,table.iksweb th {
     margin: 15px;
 	margin-left: 20px;
 	display: flex;
-    align-items: center;
+    align-items: baseline;
+	float: left;
 }
 
 .quiz-item ul li label{
