@@ -415,7 +415,7 @@ table.iksweb td,table.iksweb th {
 	font-size: 10px;
 	font-weight: 500;
 	margin-bottom: 10px;
-	padding-top: 10px;
+	padding-top: 0px;
 	margin-bottom: 0px;
 }
 
@@ -425,9 +425,7 @@ table.iksweb td,table.iksweb th {
 }
 
 .quiz-item ul{
-	padding-top: 30px;
     list-style: none;
-    padding: 0;
 }
 
 .quiz-item ul li{
@@ -435,18 +433,12 @@ table.iksweb td,table.iksweb th {
     margin: 15px;
 	margin-left: 20px;
 	display: flex;
-    align-items: baseline;
+    align-items: center;
 }
 
 .quiz-item ul li label{
 	padding-left: 10px;
     cursor: pointer;
-}
-
-input[type="radio"] {
-	height: 15px;
-  	width: 15px;
-  	vertical-align: middle;
 }
 
 .quiz-btn {
