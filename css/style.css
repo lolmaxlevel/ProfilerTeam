@@ -444,14 +444,9 @@ table.iksweb td,table.iksweb th {
 }
 
 input[type="radio"] {
-	-ms-transform: scale(1); /* IE 9 */
-	-webkit-transform: scale(1); /* Chrome, Safari, Opera */
-	transform: scale(1);
-}
-
-input:checked {
-	border: 6px #ef4841;
-	outline: unset !important; /* I added this one for Edge (chromium) support */
+	height: 15px;
+  	width: 15px;
+  	vertical-align: middle;
 }
 
 .quiz-btn {
