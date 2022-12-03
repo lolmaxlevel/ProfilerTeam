@@ -604,11 +604,11 @@ var paramsString1 = document.location.search;
 alert(document.location.search);
 
 var paramsString = document.location.href;
-if (paramsString == "file:///E:/User%20data/Documents/GitHub/dukhov/ProfilerTeam/test.html") {
+if (paramsString == "https://profiler-team.vercel.app/test.html") {
     loadQuiz();
-} else if (paramsString == "file:///E:/User%20data/Documents/GitHub/dukhov/ProfilerTeam/test2.html") {
+} else if (paramsString == "https://profiler-team.vercel.app/test2.html") {
     loadQuiz2();
-} else if (paramsString == "file:///E:/User%20data/Documents/GitHub/dukhov/ProfilerTeam/test3.html") {
+} else if (paramsString == "https://profiler-team.vercel.app/test3.html") {
     loadQuiz3();
 }
 
@@ -665,7 +665,7 @@ function getSelected(){
 }
 
 submit.addEventListener('click', () => {
-    if (paramsString == "file:///E:/User%20data/Documents/GitHub/dukhov/ProfilerTeam/test.html") {
+    if (paramsString == "https://profiler-team.vercel.app/test.html") {
         const answer = getSelected();
 
         if(answer && quizData[currentQuiz][answer] != "Выберите ответ выше") {
@@ -673,7 +673,7 @@ submit.addEventListener('click', () => {
             score += `${answer} `;
             currentQuiz++;
             bar.value++
-
+data[
             if(currentQuiz < quizData.length){
                 loadQuiz();
             }
@@ -686,7 +686,7 @@ submit.addEventListener('click', () => {
                 });
             }
         }
-    } else if (paramsString == "file:///E:/User%20data/Documents/GitHub/dukhov/ProfilerTeam/test2.html") {
+    } else if (paramsString == "https://profiler-team.vercel.app/test2.html") {
         const answer = document.querySelector('input[type="range"]').value;
         if(answer != 0) {
             score2 += `${answer} `;
@@ -705,7 +705,7 @@ submit.addEventListener('click', () => {
                 });
             }
         }
-    } else if (paramsString == "file:///E:/User%20data/Documents/GitHub/dukhov/ProfilerTeam/test3.html") {
+    } else if (paramsString == "https://profiler-team.vercel.app/test3.html") {
         const answer = getSelected();
 
         if(answer) {
