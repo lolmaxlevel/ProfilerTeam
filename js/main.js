@@ -607,7 +607,7 @@ let testurl = 'https://profiler-team.vercel.app/test.html';
 let test2url = 'https://profiler-team.vercel.app/test2.html';
 let test3url = 'https://profiler-team.vercel.app/test3.html';
 
-alert(paramsString)
+
 if (url.includes(testurl)) {
     loadQuiz();
 } else if (url.includes(test2url)) {
