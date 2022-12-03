@@ -45,6 +45,31 @@ def answer(webAppMes):
    bot.send_message(webAppMes.chat.id, f"Ты правильно ответил на {score} из {quizlength} вопросов!")
    bot.send_sticker(webAppMes.chat.id, stickers[score])"""
    #отправляем сообщение в ответ на отправку данных из веб-приложения 
-
+   a = webAppMes.web_app_data.data.split()
+   d = ["b", "c", "d", "a", "c", "c", "b", "b", "a", "a", "b", "d", "b", "b", "a"]
+   dscore = 0
+   i = ["a", "b", "b", "c", "b", "a", "b", "c", "d", "b", "c", "a", "a", "c", "b"]
+   iscore = 0.
+   s = ["c", "a", "c", "d", "a", "c", "a", "a", "b", "b", "d", "b", "c", "d", "c"]
+   sscore = 0
+   c = ["d", "d", "a", "b", "c", "b", "a", "d", "c", "a", "a", "c", "d", "a", "d"]
+   cscore = 0
+   for j in range(0, 15):
+      if a[j] == d[j]:
+         dscore+=1
+      if a[j] == i[j]:
+         iscore+=1
+      if a[j] == s[j]:
+         sscore+=1
+      if a[j] == c[j]:
+         cscore+=1
+   if max(dscore, iscore, sscore, cscore) == dscore:
+      bot.send_message(webAppMes.chat.id, f"Твой психотип по результатам 1-го теста:\nD – лидеры, руководители, достаточно авторитарные люди, которые знают, чего хотят, и не очень привыкли прислушиваться к чужому мнению.")
+   elif max(dscore, iscore, sscore, cscore) == iscore:
+      bot.send_message(webAppMes.chat.id, f"Твой психотип по результатам 1-го теста:\nI – люди, великолепно завязывающие новые знакомства, их профессия – это общение. Из них получаются великолепные специалисты по связям с общественностью, они везде свои, способны раствориться в любой компании.")
+   elif max(dscore, iscore, sscore, cscore) == sscore:
+      bot.send_message(webAppMes.chat.id, f"Твой психотип по результатам 1-го теста:\nS – командные игроки. Вместе способны на все, но абсолютно не могут работать в одиночестве. Они управляемы, хорошие работники, однако практически не в состоянии самостоятельно что-то придумать или изобрести. Самым большим их плюсом является неспособность предать, на них можно положиться во всем.")
+   elif max(dscore, iscore, sscore, cscore) == cscore:
+      bot.send_message(webAppMes.chat.id, f"Твой психотип по результатам 1-го теста:\nС – аналитики. Люди данного типа прекрасно работают с бумагами, из них получаются хорошие бухгалтеры, экономисты и юристы. Для них превыше всего – буква закона и инструкции.")
 if __name__ == '__main__':
    bot.infinity_polling()
