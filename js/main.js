@@ -600,14 +600,21 @@ let score = "t1 ";
 let score2 = "t2 ";
 let score3 = "t3 ";
 
-
 var paramsString = document.location.href;
+
+let str = paramsString;
+let substr = 'https://profiler-team.vercel.app/test.html';
+let substr2 = 'https://profiler-team.vercel.app/test2.html';
+let substr3 = 'https://profiler-team.vercel.app/test3.html';
+
+
+
 alert(paramsString)
-if ("https://profiler-team.vercel.app/test.html" in paramsString) {
+if (str.includes(substr)) {
     loadQuiz();
-} else if ("https://profiler-team.vercel.app/test2.html" in paramsString) {
+} else if (str.includes(substr2)) {
     loadQuiz2();
-} else if ("https://profiler-team.vercel.app/test3.html" in paramsString) {
+} else if (str.includes(substr3)) {
     loadQuiz3();
 }
 
