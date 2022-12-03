@@ -600,8 +600,6 @@ let score = "t1 ";
 let score2 = "t2 ";
 let score3 = "t3 ";
 
-var paramsString1 = document.location.search;
-alert(document.location.search);
 
 var paramsString = document.location.href;
 if (paramsString == "https://profiler-team.vercel.app/test.html") {
@@ -673,7 +671,7 @@ submit.addEventListener('click', () => {
             score += `${answer} `;
             currentQuiz++;
             bar.value++
-            
+
             if(currentQuiz < quizData.length){
                 loadQuiz();
             }
