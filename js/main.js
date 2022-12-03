@@ -602,6 +602,7 @@ let score3 = "t3 ";
 
 
 var paramsString = document.location.href;
+alert(paramsString)
 if (paramsString == "https://profiler-team.vercel.app/test.html") {
     loadQuiz();
 } else if (paramsString == "https://profiler-team.vercel.app/test2.html") {
