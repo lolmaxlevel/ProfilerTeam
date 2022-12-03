@@ -32,9 +32,9 @@ def new_mes(message):
 
 @bot.message_handler(content_types="web_app_data") #получаем отправленные данные 
 def answer(webAppMes):
-   print(webAppMes) #вся информация о сообщении
+   #print(webAppMes) #вся информация о сообщении
    print(webAppMes.web_app_data.data) #конкретно то что мы передали в бота
-   score = int(webAppMes.web_app_data.data.split()[0])
+   """score = int(webAppMes.web_app_data.data.split()[0])
    quizlength = webAppMes.web_app_data.data.split()[1]
    stickers = {0 : "CAACAgIAAxkBAAEGpE5jiP7D4TC8e3OurfP5ptSMqr6ScQAC0BUAAsHN6Etz9xIa14yPYCsE",
                1 : "CAACAgIAAxkBAAEGpDpjiPnbhKLixKztr4hU1QABVo2kPi0AAg8YAAI3mOhLv0JPnsNwBNkrBA", 
@@ -43,7 +43,7 @@ def answer(webAppMes):
                4 : "CAACAgIAAxkBAAEGpEBjiPn__Y6GPiXxo_0f0VHXw1kM5QACMhQAAj6r6EtdMwJVMBohFysE",
                5 : "CAACAgIAAxkBAAEGpEJjiPoI5dyY5C7JjKS9SN2zfv8UGQACgRAAAn-cEUhlrV6kjetHSisE"}
    bot.send_message(webAppMes.chat.id, f"Ты правильно ответил на {score} из {quizlength} вопросов!")
-   bot.send_sticker(webAppMes.chat.id, stickers[score])
+   bot.send_sticker(webAppMes.chat.id, stickers[score])"""
    #отправляем сообщение в ответ на отправку данных из веб-приложения 
 
 if __name__ == '__main__':
