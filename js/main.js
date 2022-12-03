@@ -602,19 +602,17 @@ let score3 = "t3 ";
 
 var paramsString = document.location.href;
 
-let str = paramsString;
-let substr = 'https://profiler-team.vercel.app/test.html';
-let substr2 = 'https://profiler-team.vercel.app/test2.html';
-let substr3 = 'https://profiler-team.vercel.app/test3.html';
-
-
+let url = paramsString;
+let testurl = 'https://profiler-team.vercel.app/test.html';
+let test2url = 'https://profiler-team.vercel.app/test2.html';
+let test3url = 'https://profiler-team.vercel.app/test3.html';
 
 alert(paramsString)
-if (str.includes(substr)) {
+if (url.includes(testurl)) {
     loadQuiz();
-} else if (str.includes(substr2)) {
+} else if (url.includes(test2url)) {
     loadQuiz2();
-} else if (str.includes(substr3)) {
+} else if (url.includes(test3url)) {
     loadQuiz3();
 }
 
@@ -671,7 +669,12 @@ function getSelected(){
 }
 
 submit.addEventListener('click', () => {
-    if (paramsString == "https://profiler-team.vercel.app/test.html") {
+    let url = paramsString;
+    let testurl = 'https://profiler-team.vercel.app/test.html';
+    let test2url = 'https://profiler-team.vercel.app/test2.html';
+    let test3url = 'https://profiler-team.vercel.app/test3.html';
+
+    if (url.includes(testurl)) {
         const answer = getSelected();
 
         if(answer && quizData[currentQuiz][answer] != "Выберите ответ выше") {
@@ -692,7 +695,7 @@ submit.addEventListener('click', () => {
                 });
             }
         }
-    } else if (paramsString == "https://profiler-team.vercel.app/test2.html") {
+    } else if (url.includes(test2url)) {
         const answer = document.querySelector('input[type="range"]').value;
         if(answer != 0) {
             score2 += `${answer} `;
@@ -711,7 +714,7 @@ submit.addEventListener('click', () => {
                 });
             }
         }
-    } else if (paramsString == "https://profiler-team.vercel.app/test3.html") {
+    } else if (url.includes(test3url)) {
         const answer = getSelected();
 
         if(answer) {
