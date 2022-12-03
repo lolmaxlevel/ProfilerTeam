@@ -724,10 +724,8 @@ submit.addEventListener('click', () => {
 
             if(currentQuiz < quizData3.length) {
                 loadQuiz3();
-            } else if(currentQuiz == 42){
-                alert(currentQuiz)
             } else {
-                quiz.innerHTML = `<div class="quiz-header"><p><center><h2>Тест №3 пройден!<br>Поздравлем, тестирование окончено!</h2></p><img style="border-radius: 10px; display: block; margin-left: auto; margin-right: auto;" src="img/quiz/click.gif"></div>`;
+                quiz3.innerHTML = `<div class="quiz-header"><p><center><h2>Тест №3 пройден!<br>Поздравлем, тестирование окончено!</h2></p><img style="border-radius: 10px; display: block; margin-left: auto; margin-right: auto;" src="img/quiz/click.gif"></div>`;
                 tg.MainButton.show() //показываем 
                 Telegram.WebApp.onEvent('mainButtonClicked', function(){
                     tg.sendData(score3); 
