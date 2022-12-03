@@ -581,7 +581,6 @@ const quizData3 = [
         a: "архивариус",
         b: "скульптор"
     }
-    
 ];
 
 const quiz = document.getElementById('quiz');
@@ -719,14 +718,15 @@ submit.addEventListener('click', () => {
 
         if(answer) {
 
-            score += `${answer} `;
+            score3 += `${answer} `;
             currentQuiz++;
             bar.value++
 
-            if(currentQuiz < quizData3.length){
+            if(currentQuiz < quizData3.length) {
                 loadQuiz3();
-            }
-            else{
+            } else if(currentQuiz == 42){
+                alert(currentQuiz)
+            } else {
                 quiz.innerHTML = `<div class="quiz-header"><p><center><h2>Тест №3 пройден!<br>Поздравлем, тестирование окончено!</h2></p><img style="border-radius: 10px; display: block; margin-left: auto; margin-right: auto;" src="img/quiz/click.gif"></div>`;
                 tg.MainButton.show() //показываем 
                 Telegram.WebApp.onEvent('mainButtonClicked', function(){
