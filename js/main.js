@@ -603,11 +603,11 @@ let score3 = "t3 ";
 
 var paramsString = document.location.href;
 alert(paramsString)
-if (paramsString == "https://profiler-team.vercel.app/test.html") {
+if ("https://profiler-team.vercel.app/test.html" in paramsString) {
     loadQuiz();
-} else if (paramsString == "https://profiler-team.vercel.app/test2.html") {
+} else if ("https://profiler-team.vercel.app/test2.html" in paramsString) {
     loadQuiz2();
-} else if (paramsString == "https://profiler-team.vercel.app/test3.html") {
+} else if ("https://profiler-team.vercel.app/test3.html" in paramsString) {
     loadQuiz3();
 }
 
