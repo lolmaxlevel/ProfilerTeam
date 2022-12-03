@@ -3,8 +3,6 @@
 from telebot import types
 import telebot
 from fpdf import FPDF
-import time
-import os
 
 bot = telebot.TeleBot('5823049262:AAGvZ-AO_QPQPO3nzLdW-aNQZr0bJSpXZo0')
 
@@ -282,7 +280,6 @@ def answer(webAppMes):
 
       bot.send_message(webAppMes.chat.id, "Поздравляю с успешным прохождением всех тестов!\nСейчас я обработаю твои результаты и пришлю отчет в виде pdf файла. Это может занять пару секунд)")
       pdf_report(webAppMes.chat.id, webAppMes.from_user.first_name, res1, res2, res3)
-      files = os.listdir("E:\\User data\\Documents\\GitHub\\dukhov\\ProfilerTeam\\reports")
       with open(f"E:\\User data\\Documents\\GitHub\\dukhov\\ProfilerTeam\\reports\\{webAppMes.chat.id}.pdf", "rb") as file:
          bot.send_document(webAppMes.chat.id, document=file, caption= f'Отчёт_для_{webAppMes.from_user.first_name}.pdf', reply_markup=types.ReplyKeyboardRemove())
 
