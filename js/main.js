@@ -673,7 +673,7 @@ submit.addEventListener('click', () => {
             score += `${answer} `;
             currentQuiz++;
             bar.value++
-data[
+            
             if(currentQuiz < quizData.length){
                 loadQuiz();
             }
