@@ -278,10 +278,10 @@ def answer(webAppMes):
 
       res3 = about_dict[max(rscore, iscore, sscore, kscore, pscore, ascore)]
 
-      bot.send_message(webAppMes.chat.id, "Поздравляю с успешным прохождением всех тестов!\nСейчас я обработаю твои результаты и пришлю отчет в виде pdf файла. Это может занять пару секунд)")
+      bot.send_message(webAppMes.chat.id, "Поздравляю с успешным прохождением всех тестов!\nСейчас я обработаю твои результаты и пришлю отчет в виде pdf файла. Это может занять пару секунд)", reply_markup=types.ReplyKeyboardRemove())
       pdf_report(webAppMes.chat.id, webAppMes.from_user.first_name, res1, res2, res3)
       with open(f"E:\\User data\\Documents\\GitHub\\dukhov\\ProfilerTeam\\reports\\{webAppMes.chat.id}.pdf", "rb") as file:
-         bot.send_document(webAppMes.chat.id, document=file, caption= f'Отчёт_для_{webAppMes.from_user.first_name}.pdf', reply_markup=types.ReplyKeyboardRemove())
+         bot.send_document(webAppMes.chat.id, document=file, caption= f'Отчёт_для_{webAppMes.from_user.first_name}.pdf')
 
 
 if __name__ == '__main__':
