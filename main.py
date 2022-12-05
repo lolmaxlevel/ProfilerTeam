@@ -309,6 +309,8 @@ def answer(webAppMes):
       with open(f"reports\\{webAppMes.chat.id}.pdf", "rb") as file:
          bot.send_document(webAppMes.chat.id, document=file, caption= f'Отчёт_{webAppMes.from_user.first_name}.pdf', reply_markup=loginKeyboard())
    elif data[0] == 'Done':
+      with open('vips.txt', 'r') as original: data = original.read()
+      with open('vips.txt', 'w') as modified: modified.write(data + f"\n{webAppMes.chat.id}")
       bot.send_message(webAppMes.chat.id, "Поздравляю с покупкой расширенного отчёта!\nСейчас я обработаю твои результаты и пришлю отчет в виде pdf файла. Это займет около 3 минут.", reply_markup=types.ReplyKeyboardRemove())
       with open(f"vipreports\\{webAppMes.chat.id}.pdf", "rb") as file:
          bot.send_document(webAppMes.chat.id, document=file, caption= f'Отчёт_{webAppMes.from_user.first_name}.pdf', reply_markup=loginKeyboard())
