@@ -672,6 +672,7 @@ submit.addEventListener('click', () => {
     let testurl = 'https://profiler-team.vercel.app/test.html';
     let test2url = 'https://profiler-team.vercel.app/test2.html';
     let test3url = 'https://profiler-team.vercel.app/test3.html';
+    let buyurl = 'https://profiler-team.vercel.app/buy.html'
 
     if (url.includes(testurl)) {
         const answer = getSelected();
@@ -733,5 +734,7 @@ submit.addEventListener('click', () => {
                 });
             }
         }
+    } else if (url.includes(buyurl)) {
+        tg.sendData("Done"); 
     }
 });
