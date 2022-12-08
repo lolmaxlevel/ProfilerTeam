@@ -384,7 +384,7 @@ def answer(webAppMes):
       with open('users.txt', 'r') as original: data = original.read()
       with open('users.txt', 'w') as modified: modified.write(data + f"\n{webAppMes.chat.id} {res1[16]} {res2[:4]} {res3[0]}")
       pdf_report(webAppMes.chat.id, webAppMes.from_user.first_name, res1, res2[4:], res3[1:])
-      with open(f"reports\\{webAppMes.chat.id}.pdf", "rb") as file:
+      with open(f"reports/{webAppMes.chat.id}.pdf", "rb") as file:
          bot.send_document(webAppMes.chat.id, document=file, caption= f'Отчёт_{webAppMes.from_user.first_name}.pdf', reply_markup=loginKeyboard())
    elif data[0] == 'Done':
       if str(webAppMes.chat.id) != "452207570":
