@@ -222,7 +222,7 @@ def start(message):
       users_data = users_list.read()
       if str(message.chat.id) == "452207570":
          bot.send_message(message.chat.id, 'Привет, я бот ProfilerTeam!)\nЗапустить тесты можно нажав на кнопку ниже.', parse_mode="Markdown", reply_markup=webAppKeyboard1()) #отправляем сообщение с нужной клавиатурой
-      if str(message.chat.id) in users_data:
+      elif str(message.chat.id) in users_data:
          bot.send_message(message.chat.id, f'Привет, {message.from_user.first_name}!\nВыбери действие:', reply_markup=loginKeyboard())
       else:
          bot.send_message(message.chat.id, 'Привет, я бот ProfilerTeam!)\nЗапустить тесты можно нажав на кнопку ниже.', parse_mode="Markdown", reply_markup=webAppKeyboard1()) #отправляем сообщение с нужной клавиатурой
