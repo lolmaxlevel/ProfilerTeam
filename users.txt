@@ -1,2 +1,2 @@
-1234567 T T T full
-452207570 S pred A full
+1234567 T T T
+452207570 S pred A

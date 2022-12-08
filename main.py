@@ -3,6 +3,7 @@
 from telebot import types
 import telebot
 from fpdf import FPDF
+import json
 
 bot = telebot.TeleBot('5823049262:AAGvZ-AO_QPQPO3nzLdW-aNQZr0bJSpXZo0')
 
@@ -57,7 +58,7 @@ class PDF(FPDF):
       self.image('img\\test1.png', x=0, y=0, w=210)
       self.add_font('Opel Sans', '', r"C:\\Users\\misha\\AppData\\Local\\Microsoft\\Windows\\Fonts\\Opel-Sans-Regular.ttf", uni=True)
       self.set_font("Opel Sans", size=32)
-      self.ln(55)  # ниже на 85
+      self.ln(48)  # ниже на 85
 
    def footer(self):
       # Setting position at 1.5 cm from bottom:
@@ -109,9 +110,47 @@ class PDF(FPDF):
          # Performing a line break:
          self.ln()
 
+   def chapter_vipbody(self, num, txt):
+      if num == 2:
+         self.set_font("Opel Sans", size=14)
+         self.multi_cell(0, 5, txt.split("!")[0])
+         self.ln(3)
+         self.set_font("Opel Sans", size=12)
+         self.multi_cell(0, 5, txt.split("!")[1])
+         self.ln()
+      elif num == 3:
+         for i in txt:
+            if i[0] == "-" and i[-1] == ".":
+               self.set_font("Opel Sans", size=12)
+               self.multi_cell(0, 5, i)
+               self.ln(6)
+            elif i[0] == "-":
+               self.set_font("Opel Sans", size=12)
+               self.multi_cell(0, 5, i)
+               self.ln(2)
+            elif i[-1] == ":":
+               self.set_font("Opel Sans", size=14)
+               self.multi_cell(0, 5, i)
+               self.ln(4)
+            else:
+               self.set_font("Opel Sans", size=12)
+               self.multi_cell(0, 5, i)
+               self.ln(6)
+      else:
+         self.set_font("Opel Sans", size=12)
+         # Printing justified text:
+         self.multi_cell(0, 5, txt)
+         # Performing a line break:
+         self.ln()
+
    def print_chapter(self, num, utype, txt):
       self.chapter_title(num, utype)
       self.chapter_body(num, txt)
+
+   def print_vipchapter(self, num, utype, txt):
+      self.add_page()
+      self.chapter_title(num, utype)
+      self.chapter_vipbody(num, txt)
 
 def pdf_report(uid, name, uinfo, uinfo2, uinfo3):
     utype = uinfo.split("|")[0]
@@ -138,6 +177,34 @@ def pdf_report(uid, name, uinfo, uinfo2, uinfo3):
     pdf.print_chapter(3, utype3, text3)
     pdf.output(f"reports\\{uid}.pdf")
     print(f"Pdf_report for user({uid}) created successful!")
+
+def pdf_vipreport(uid, name, uinfo, uinfo2, uinfo3):
+    utype = uinfo.split("|")[0]
+    utype2 = uinfo2.split("|")[0]
+    utype3 = uinfo3.split("!")[0]
+    text = uinfo.split("|")[1]
+    text2 = uinfo2.split("|")[1]
+    text3 = uinfo3.split("!")[1:]
+    pdf = PDF()
+    pdf.add_page()
+    pdf.add_font('Opel Sans', '', r"C:\\Users\\misha\\AppData\\Local\\Microsoft\\Windows\\Fonts\\Opel-Sans-Regular.ttf", uni=True)
+    pdf.set_font("Opel Sans", size=52)
+    pdf.ln(55)  # ниже на 85
+    pdf.cell(200, 0, txt="ОТЧЁТ  ", ln=1, align="C")
+    pdf.ln(15)
+    pdf.set_font("Opel Sans", size=20)
+    pdf.cell(200, 0, txt="ПОЛНЫЙ     ", ln=1, align="C")
+    pdf.ln(15)
+    pdf.set_font("Opel Sans", size=16)
+    pdf.cell(200, 0, txt="ПО ПРОЙДЕННЫМ ТЕСТАМ      ", ln=1, align="C")
+    pdf.ln(10)
+    pdf.set_font("Opel Sans", size=13)
+    pdf.cell(200, 0, txt=f"Для пользователя {name}       ", ln=1, align="C")
+    pdf.print_vipchapter(1, utype, text)
+    pdf.print_vipchapter(2, utype2, text2)
+    pdf.print_vipchapter(3, utype3, text3)
+    pdf.output(f"vipreports\\{uid}.pdf")
+    print(f"Pdf_vipreport for user({uid}) created successful!")
     
 
 
@@ -180,7 +247,7 @@ def handle_message_received(message):
             with open(f"vipreports\\{message.chat.id}.pdf", "rb") as file:
                bot.send_document(message.chat.id, document=file, caption= f'Отчёт_{message.from_user.first_name}.pdf', reply_markup=loginKeyboard())
          else:
-            bot.send_message(message.chat.id, 'Ты можещь приобрести развернутый отчет по твоим интересам всего за 299 рублей. Жми на кнопку "Купить полный отчёт"!', parse_mode="Markdown", reply_markup=buyKeyboard())
+            bot.send_message(message.chat.id, 'Ты можешь приобрести развернутый отчет по твоим интересам всего за 299 рублей. Жми на кнопку "Купить полный отчёт"!', parse_mode="Markdown", reply_markup=buyKeyboard())
 
       
    
@@ -312,6 +379,16 @@ def answer(webAppMes):
       with open('vips.txt', 'r') as original: data = original.read()
       with open('vips.txt', 'w') as modified: modified.write(data + f"\n{webAppMes.chat.id}")
       bot.send_message(webAppMes.chat.id, "Поздравляю с покупкой расширенного отчёта!\nСейчас я обработаю твои результаты и пришлю отчет в виде pdf файла. Это займет около 3 минут.", reply_markup=types.ReplyKeyboardRemove())
+      with open("users.txt", "r") as users:
+         user = users.read().splitlines()
+      for i in user:
+         if str(webAppMes.chat.id) in i:
+            with open('E:\\User data\\Documents\\GitHub\\dukhov\\ProfilerTeam\\texts_for_long.json', encoding="utf8") as json_file:
+               data = json.load(json_file)
+            res1 = data["about_dict1"][f"{i.split()[1]}"]
+            res2 = data["about_dict2"][f"{i.split()[2]}"]
+            res3 = data["about_dict3"][f"{i.split()[3]}"]
+      pdf_vipreport(webAppMes.chat.id, webAppMes.from_user.first_name, res1, res2, res3)
       with open(f"vipreports\\{webAppMes.chat.id}.pdf", "rb") as file:
          bot.send_document(webAppMes.chat.id, document=file, caption= f'Отчёт_{webAppMes.from_user.first_name}.pdf', reply_markup=loginKeyboard())
 
