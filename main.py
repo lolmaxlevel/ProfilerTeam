@@ -111,7 +111,13 @@ class PDF(FPDF):
          self.ln()
 
    def chapter_vipbody(self, num, txt):
-      if num == 2:
+      if num == 1:
+         txt = txt.split("!")
+         for i in txt:
+            self.set_font("Opel Sans", size=12)
+            self.multi_cell(0, 5, i)
+            self.ln(3)
+      elif num == 2:
          self.set_font("Opel Sans", size=14)
          self.multi_cell(0, 5, txt.split("!")[0])
          self.ln(3)
