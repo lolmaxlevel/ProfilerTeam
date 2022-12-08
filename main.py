@@ -249,13 +249,16 @@ def handle_message_received(message):
             bot.send_document(message.chat.id, document=file, caption= f'Отчёт_{message.from_user.first_name}.pdf', reply_markup=loginKeyboard())
    
    elif text == 'Полный отчёт':
-      with open('vips.txt', 'r') as users_list: 
-         users_data = users_list.read()
-         if str(message.chat.id) in users_data:
-            with open(f"vipreports/{message.chat.id}.pdf", "rb") as file:
-               bot.send_document(message.chat.id, document=file, caption= f'Отчёт_{message.from_user.first_name}.pdf', reply_markup=loginKeyboard())
-         else:
-            bot.send_message(message.chat.id, 'Ты можешь приобрести развернутый отчет по твоим интересам всего за 299 рублей. Жми на кнопку "Купить полный отчёт"!', parse_mode="Markdown", reply_markup=buyKeyboard())
+      if str(message.chat.id) == "452207570":
+         bot.send_message(message.chat.id, 'Ты можешь приобрести развернутый отчет по твоим интересам всего за 299 рублей. Жми на кнопку "Купить полный отчёт"!', parse_mode="Markdown", reply_markup=buyKeyboard())
+      else:
+         with open('vips.txt', 'r') as users_list: 
+            users_data = users_list.read()
+            if str(message.chat.id) in users_data:
+               with open(f"vipreports/{message.chat.id}.pdf", "rb") as file:
+                  bot.send_document(message.chat.id, document=file, caption= f'Отчёт_{message.from_user.first_name}.pdf', reply_markup=loginKeyboard())
+            else:
+               bot.send_message(message.chat.id, 'Ты можешь приобрести развернутый отчет по твоим интересам всего за 299 рублей. Жми на кнопку "Купить полный отчёт"!', parse_mode="Markdown", reply_markup=buyKeyboard())
 
       
    
@@ -384,8 +387,9 @@ def answer(webAppMes):
       with open(f"reports\\{webAppMes.chat.id}.pdf", "rb") as file:
          bot.send_document(webAppMes.chat.id, document=file, caption= f'Отчёт_{webAppMes.from_user.first_name}.pdf', reply_markup=loginKeyboard())
    elif data[0] == 'Done':
-      with open('vips.txt', 'r') as original: data = original.read()
-      with open('vips.txt', 'w') as modified: modified.write(data + f"\n{webAppMes.chat.id}")
+      if str(webAppMes.chat.id) != "452207570":
+         with open('vips.txt', 'r') as original: data = original.read()
+         with open('vips.txt', 'w') as modified: modified.write(data + f"\n{webAppMes.chat.id}")
       bot.send_message(webAppMes.chat.id, "Поздравляю с покупкой расширенного отчёта!\nСейчас я обработаю твои результаты и пришлю отчет в виде pdf файла. Это займет около 3 минут.", reply_markup=types.ReplyKeyboardRemove())
       with open("users.txt", "r") as users:
          user = users.read().splitlines()
