@@ -55,8 +55,8 @@ def loginKeyboard():
 
 class PDF(FPDF):
    def header(self):
-      self.image('img\\test1.png', x=0, y=0, w=210)
-      self.add_font('Opel Sans', '', r"C:\\Users\\misha\\AppData\\Local\\Microsoft\\Windows\\Fonts\\Opel-Sans-Regular.ttf", uni=True)
+      self.image('img/test1.png', x=0, y=0, w=210)
+      self.add_font('Opel Sans', '', r"/home/pi/.fonts/Opel-Sans-Regular.ttf", uni=True)
       self.set_font("Opel Sans", size=32)
       self.ln(48)  # ниже на 85
 
@@ -167,7 +167,7 @@ def pdf_report(uid, name, uinfo, uinfo2, uinfo3):
     text3 = uinfo3.split("|")[1]
     pdf = PDF()
     pdf.add_page()
-    pdf.add_font('Opel Sans', '', r"C:\\Users\\misha\\AppData\\Local\\Microsoft\\Windows\\Fonts\\Opel-Sans-Regular.ttf", uni=True)
+    pdf.add_font('Opel Sans', '', r"/home/pi/.fonts/Opel-Sans-Regular.ttf", uni=True)
     pdf.set_font("Opel Sans", size=52)
     pdf.ln(55)  # ниже на 85
     pdf.cell(200, 0, txt="ОТЧЁТ  ", ln=1, align="C")
@@ -181,7 +181,7 @@ def pdf_report(uid, name, uinfo, uinfo2, uinfo3):
     pdf.print_chapter(1, utype, text)
     pdf.print_chapter(2, utype2, text2)
     pdf.print_chapter(3, utype3, text3)
-    pdf.output(f"reports\\{uid}.pdf")
+    pdf.output(f"reports/{uid}.pdf")
     print(f"Pdf_report for user({uid}) created successful!")
 
 def pdf_vipreport(uid, name, uinfo, uinfo2, uinfo3):
@@ -193,7 +193,7 @@ def pdf_vipreport(uid, name, uinfo, uinfo2, uinfo3):
     text3 = uinfo3.split("!")[1:]
     pdf = PDF()
     pdf.add_page()
-    pdf.add_font('Opel Sans', '', r"C:\\Users\\misha\\AppData\\Local\\Microsoft\\Windows\\Fonts\\Opel-Sans-Regular.ttf", uni=True)
+    pdf.add_font('Opel Sans', '', r"/home/pi/.fonts/Opel-Sans-Regular.ttf", uni=True)
     pdf.set_font("Opel Sans", size=52)
     pdf.ln(55)  # ниже на 85
     pdf.cell(200, 0, txt="ОТЧЁТ  ", ln=1, align="C")
@@ -209,7 +209,7 @@ def pdf_vipreport(uid, name, uinfo, uinfo2, uinfo3):
     pdf.print_vipchapter(1, utype, text)
     pdf.print_vipchapter(2, utype2, text2)
     pdf.print_vipchapter(3, utype3, text3)
-    pdf.output(f"vipreports\\{uid}.pdf")
+    pdf.output(f"vipreports/{uid}.pdf")
     print(f"Pdf_vipreport for user({uid}) created successful!")
     
 
@@ -220,6 +220,8 @@ def start(message):
 
    with open('users.txt', 'r') as users_list: 
       users_data = users_list.read()
+      if str(message.chat.id) == "452207570":
+         bot.send_message(message.chat.id, 'Привет, я бот ProfilerTeam!)\nЗапустить тесты можно нажав на кнопку ниже.', parse_mode="Markdown", reply_markup=webAppKeyboard1()) #отправляем сообщение с нужной клавиатурой
       if str(message.chat.id) in users_data:
          bot.send_message(message.chat.id, f'Привет, {message.from_user.first_name}!\nВыбери действие:', reply_markup=loginKeyboard())
       else:
@@ -243,14 +245,14 @@ def handle_message_received(message):
    except:
       pass
    if text == 'Базовый отчёт':
-      with open(f"reports\\{message.chat.id}.pdf", "rb") as file:
+      with open(f"reports/{message.chat.id}.pdf", "rb") as file:
             bot.send_document(message.chat.id, document=file, caption= f'Отчёт_{message.from_user.first_name}.pdf', reply_markup=loginKeyboard())
    
    elif text == 'Полный отчёт':
       with open('vips.txt', 'r') as users_list: 
          users_data = users_list.read()
          if str(message.chat.id) in users_data:
-            with open(f"vipreports\\{message.chat.id}.pdf", "rb") as file:
+            with open(f"vipreports/{message.chat.id}.pdf", "rb") as file:
                bot.send_document(message.chat.id, document=file, caption= f'Отчёт_{message.from_user.first_name}.pdf', reply_markup=loginKeyboard())
          else:
             bot.send_message(message.chat.id, 'Ты можешь приобрести развернутый отчет по твоим интересам всего за 299 рублей. Жми на кнопку "Купить полный отчёт"!', parse_mode="Markdown", reply_markup=buyKeyboard())
@@ -389,13 +391,13 @@ def answer(webAppMes):
          user = users.read().splitlines()
       for i in user:
          if str(webAppMes.chat.id) in i:
-            with open('E:\\User data\\Documents\\GitHub\\dukhov\\ProfilerTeam\\texts_for_long.json', encoding="utf8") as json_file:
+            with open('texts_for_long.json', encoding="utf8") as json_file:
                data = json.load(json_file)
             res1 = data["about_dict1"][f"{i.split()[1]}"]
             res2 = data["about_dict2"][f"{i.split()[2]}"]
             res3 = data["about_dict3"][f"{i.split()[3]}"]
       pdf_vipreport(webAppMes.chat.id, webAppMes.from_user.first_name, res1, res2, res3)
-      with open(f"vipreports\\{webAppMes.chat.id}.pdf", "rb") as file:
+      with open(f"vipreports/{webAppMes.chat.id}.pdf", "rb") as file:
          bot.send_document(webAppMes.chat.id, document=file, caption= f'Отчёт_{webAppMes.from_user.first_name}.pdf', reply_markup=loginKeyboard())
 
 
