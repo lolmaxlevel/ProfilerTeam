@@ -4,8 +4,29 @@ from telebot import types
 import telebot
 from fpdf import FPDF
 import json
+import datetime
 
 bot = telebot.TeleBot('5823049262:AAGvZ-AO_QPQPO3nzLdW-aNQZr0bJSpXZo0')
+
+
+def listener(messages):
+   for m in messages:
+      if m.content_type == 'text':
+         print("––––––––––––––––––––––––––––––––––––––––––––––––––––––")
+         print(f'{m.chat.username}[{m.chat.id}][{datetime.datetime.now().strftime("%d-%m-%Y_%H-%M")}]: {m.text}')
+         with open('logs.txt', 'a', encoding = 'utf-8') as logs_file:
+               logs_file.write("––––––––––––––––––––––––––––––––––––––––––––––––––––––\n")
+               logs_file.write(f'{m.chat.username}[{m.chat.id}][{datetime.datetime.now().strftime("%d-%m-%Y_%H-%M")}]: {m.text}\n')
+      elif m.content_type == 'web_app_data':
+         print("––––––––––––––––––––––––––––––––––––––––––––––––––––––")
+         print(f'{m.chat.username}[{m.chat.id}][{datetime.datetime.now().strftime("%d-%m-%Y_%H-%M")}]: {m.text}')
+         with open('logs.txt', 'a', encoding = 'utf-8') as logs_file:
+               logs_file.write("––––––––––––––––––––––––––––––––––––––––––––––––––––––\n")
+               logs_file.write(f'{m.chat.username}[{m.chat.id}][{datetime.datetime.now().strftime("%d-%m-%Y_%H-%M")}]: {m.web_app_data}\n')
+
+
+bot.set_update_listener(listener)
+
 
 
 def webAppKeyboard1(): #создание клавиатуры с webapp кнопкой
@@ -49,6 +70,14 @@ def loginKeyboard():
    baza = types.KeyboardButton(text='Базовый отчёт')
    full = types.KeyboardButton(text='Полный отчёт')
    keyboard.add(baza, full)
+
+   return keyboard
+
+def adminKeyboard():
+   keyboard = types.ReplyKeyboardMarkup(row_width=2, resize_keyboard=True)
+   menu = types.KeyboardButton(text='Вернуться в меню')
+   logs = types.KeyboardButton(text='Получить логи')
+   keyboard.add(logs, menu)
 
    return keyboard
 
@@ -221,7 +250,7 @@ def start(message):
    with open('users.txt', 'r') as users_list: 
       users_data = users_list.read()
       if str(message.chat.id) == "452207570":
-         bot.send_message(message.chat.id, 'Привет, я бот ProfilerTeam!)\nЗапустить тесты можно нажав на кнопку ниже.', parse_mode="Markdown", reply_markup=webAppKeyboard1()) #отправляем сообщение с нужной клавиатурой
+         bot.send_message(message.chat.id, 'Привет, admin! Выбери действие:', parse_mode="Markdown", reply_markup=adminKeyboard()) #отправляем сообщение с нужной клавиатурой
       elif str(message.chat.id) in users_data:
          bot.send_message(message.chat.id, f'Привет, {message.from_user.first_name}!\nВыбери действие:', reply_markup=loginKeyboard())
       else:
@@ -244,10 +273,14 @@ def handle_message_received(message):
       bot.delete_message(message.chat.id, message.message_id)
    except:
       pass
-   if text == 'Базовый отчёт':
+   if text == 'Получить логи':
+      with open("logs.txt", "rb") as file:
+         bot.send_document(message.chat.id, document=file, reply_markup=loginKeyboard())
+   elif text == 'Вернуться в меню':
+      bot.send_message(message.chat.id, 'Привет, я бот ProfilerTeam!)\nЗапустить тесты можно нажав на кнопку ниже.', parse_mode="Markdown", reply_markup=webAppKeyboard1())
+   elif text == 'Базовый отчёт':
       with open(f"reports/{message.chat.id}.pdf", "rb") as file:
-            bot.send_document(message.chat.id, document=file, caption= f'Отчёт_{message.from_user.first_name}.pdf', reply_markup=loginKeyboard())
-   
+         bot.send_document(message.chat.id, document=file, caption= f'Отчёт_{message.from_user.first_name}.pdf', reply_markup=loginKeyboard())
    elif text == 'Полный отчёт':
       if str(message.chat.id) == "452207570":
          bot.send_message(message.chat.id, 'Ты можешь приобрести развернутый отчет по твоим интересам всего за 299 рублей. Жми на кнопку "Купить полный отчёт"!', parse_mode="Markdown", reply_markup=buyKeyboard())
@@ -260,8 +293,6 @@ def handle_message_received(message):
             else:
                bot.send_message(message.chat.id, 'Ты можешь приобрести развернутый отчет по твоим интересам всего за 299 рублей. Жми на кнопку "Купить полный отчёт"!', parse_mode="Markdown", reply_markup=buyKeyboard())
 
-      
-   
    else:
       bot.send_message(message.chat.id, 'Воспользуйтесь предложенными кнопками. Если кнопки исчезли, введите команду /start')
 
